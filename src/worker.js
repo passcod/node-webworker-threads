@@ -1,10 +1,12 @@
+var licuri;
+licuri = require('licuri');
 function Worker(){
   var Threads;
   Threads = this;
   return (function(){
     var prototype = constructor.prototype;
     function constructor(code){
-      var t, this$ = this;
+      var t, e, this$ = this;
       this.thread = t = Threads.create();
       t.on('message', function(args){
         return typeof this$.onmessage === 'function' ? this$.onmessage({
@@ -38,7 +40,12 @@ function Worker(){
       if (typeof code === 'function') {
         t.eval("(" + code + ")()");
       } else if (code != null) {
-        t.load(code);
+        try {
+          t.load(licuri.parse(code).data);
+        } catch (e$) {
+          e = e$;
+          t.load(code);
+        }
       }
     }
     return constructor;

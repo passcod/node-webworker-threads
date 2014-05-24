@@ -37,6 +37,7 @@ scripts:
   """
 dependencies:
   nan: \0.8.x
+  licuri: \1.0.x
 dev-dependencies:
   LiveScript: \1.2.x
 gypfile: true

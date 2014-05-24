@@ -1,3 +1,4 @@
+licuri = require \licuri
 function Worker () => Threads = this; class
     (code) ->
         @thread = t = Threads.create!
@@ -15,4 +16,7 @@ function Worker () => Threads = this; class
         if typeof code is \function
             t.eval "(#code)()"
         else if code?
-            t.load code
+            try
+                t.load licuri.parse(code).data
+            catch
+                t.load code
